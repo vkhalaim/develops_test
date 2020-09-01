@@ -3,6 +3,7 @@ from django.db import models
 
 class Post(models.Model):
     """Post model"""
+
     title = models.CharField(max_length=150)
     link = models.CharField(max_length=150)
     creation_date = models.DateTimeField(auto_now_add=True)
@@ -19,6 +20,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     """Comment model"""
+
     author = models.CharField(verbose_name="author", max_length=50)
     content = models.TextField(verbose_name="content")
     created = models.DateTimeField(

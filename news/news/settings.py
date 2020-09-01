@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "news_api",
 ]
 
 MIDDLEWARE = [
@@ -76,12 +77,12 @@ WSGI_APPLICATION = "news.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'news',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "news",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -91,11 +92,17 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator", # noqa E501
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa E501
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", }, # noqa E501
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", }, # noqa E501
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", }, # noqa E501
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", # noqa E501
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", # noqa E501
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", # noqa E501
+    },
 ]
 
 
