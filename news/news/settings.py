@@ -9,8 +9,21 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
 
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
+
+
+def get_env(key, default=None):
+    try:
+        return os.environ[key]
+    except KeyError:
+        if default is not None:
+            return default
+        else:
+            err_msg = f"Set the {key} environment variable"
+            raise ImproperlyConfigured(err_msg)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,13 +34,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "vry33gck8^^w%lcfw(a5_j%_5=4v!fgb7dmlw&k00z-_e1#1d9"
+SECRET_KEY = get_env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(get_env("DEBUG", 1))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -78,12 +90,12 @@ WSGI_APPLICATION = "news.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "news",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": get_env("DB_NAME"),
+        "USER": get_env("DB_USER"),
+        "PASSWORD": get_env("DB_PASSWORD"),
+        "HOST": get_env("DB_HOST"),
+        "PORT": get_env("DB_PORT", 5432),
     }
 }
 
