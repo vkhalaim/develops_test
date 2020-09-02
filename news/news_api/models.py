@@ -27,7 +27,7 @@ class Comment(models.Model):
         verbose_name="creation date", auto_now_add=True
         )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, verbose_name="posts"
+        Post, on_delete=models.CASCADE, related_name="comments"
     )
 
     def __str__(self):

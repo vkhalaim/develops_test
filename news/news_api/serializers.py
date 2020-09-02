@@ -4,6 +4,13 @@ from .models import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
+
+    comments = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='comments-detail'
+    )
+
     class Meta:
         model = Post
         fields = [
@@ -12,6 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
             "creation_date",
             "upvotes",
             "author",
+            "comments",
         ]
         read_only_fields = [
             "votes",
@@ -19,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comment
         fields = [
