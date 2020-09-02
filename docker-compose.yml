@@ -1,0 +1,49 @@
+version: '2.0'
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+    env_file:
+      - .env
+  redis:
+    image: "redis:alpine"
+  web:
+    restart: always
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/news
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+  celery:
+    build:
+      context: .
+    command: celery -A news worker -l info
+    volumes:
+      - .:/news
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+  celery-beat:
+    build:
+      context: .
+    command: celery -A news beat -l info
+    volumes:
+      - .:/news
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+volumes:
+  postgres_data:
