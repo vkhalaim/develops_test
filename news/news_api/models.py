@@ -23,12 +23,8 @@ class Comment(models.Model):
 
     author = models.CharField(verbose_name="author", max_length=50)
     content = models.TextField(verbose_name="content")
-    created = models.DateTimeField(
-        verbose_name="creation date", auto_now_add=True
-        )
-    post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name="comments"
-        )
+    created = models.DateTimeField(verbose_name="creation date", auto_now_add=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
 
     def __str__(self):
         return f"{self.author}'s comment to {self.post}"
