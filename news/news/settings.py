@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -95,13 +96,13 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa E501
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", # noqa E501
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa E501
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", # noqa E501
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa E501
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", # noqa E501
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa E501
     },
 ]
 
@@ -124,3 +125,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_TASK_RESULT_EXPIRES = 86400
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'

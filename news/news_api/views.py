@@ -18,7 +18,6 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class UpvoteView(views.APIView):
-
     def get(self, request, pk):
         post = generics.get_object_or_404(Post, pk=pk)
         post.vote()

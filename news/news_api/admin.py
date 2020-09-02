@@ -14,10 +14,18 @@ class PostAdmin(admin.ModelAdmin):
         "title",
     ]
     fields = [
-        ("title", "link", ),
-        ("author", "upvotes", ),
+        (
+            "title",
+            "link",
+        ),
+        (
+            "author",
+            "upvotes",
+        ),
     ]
-    readonly_fields = ["upvotes", ]
+    readonly_fields = [
+        "upvotes",
+    ]
 
 
 @admin.register(Comment)
