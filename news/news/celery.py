@@ -13,6 +13,6 @@ app.autodiscover_tasks()
 app.conf.CELERYBEAT_SCHEDULE = {
     "clean_votes": {
         "task": "news_api.tasks.reset_upvote",
-        "schedule": crontab(hourr="*/24"),
+        "schedule": crontab(hour="*/24"),
     }
 }
